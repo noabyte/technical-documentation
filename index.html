@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>technical Documention</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <nav id="navbar">
+    <header>Sass <br> Documentation</header>
+    <a class="nav-link" href="#Features">Features</a>
+    <a class="nav-link" href="#Syntax">Syntax</a>
+    <a class="nav-link" href="#Using_Sass">Using Sass</a>
+    <a class="nav-link" href="#CSS_Extensions">CSS Extensions</a>
+    <a class="nav-link" href="#Comments">Comments</a>
+    <a class="nav-link" href="#SassScript">SassScript</a>
+  </nav>
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
+<main id="main-doc">
+  <section id="Features" class="main-section">
+    <header>Features</header>
+    <div>
+      <ul>
+        <li>Fully CSS-compatible</li>
+        <li>Language extensions such as variables, nesting, and mixins</li>
+        <li>
+          Many useful functions for manipulating colors and other values
+        </li>
+        <li>Advanced features like control directives for libraries</li>
+        <li>Well-formatted, customizable output</li>
+      </ul>
+    </div>
+  </section>
+  <section id="Syntax" class="main-section">
+    <header>Syntax</header>
+    <div>
+      <p>
+        There are two syntaxes available for Sass. The first, known as SCSS
+        (Sassy CSS) and used throughout this reference, is an extension of the
+        syntax of CSS. This means that every valid CSS stylesheet is a valid
+        SCSS file with the same meaning. In addition, SCSS understands most
+        CSS hacks and vendor-specific syntax, such as IE's old filter syntax.
+        This syntax is enhanced with the Sass features described below. Files
+        using this syntax have the .scss extension.
+      </p>
+      <p>
+        The second and older syntax, known as the indented syntax (or
+        sometimes just "Sass"), provides a more concise way of writing CSS. It
+        uses indentation rather than brackets to indicate nesting of
+        selectors, and newlines rather than semicolons to separate properties.
+        Some people find this to be easier to read and quicker to write than
+        SCSS. The indented syntax has all the same features, although some of
+        them have slightly different syntax; this is described in the indented
+        syntax reference. Files using this syntax have the .sass extension.
+      </p>
+      <p>
+        Either syntax can import files written in the other. Files can be
+        automatically converted from one syntax to the other using the
+        sass-convert command line tool:
+      </p>
+      <code># Convert Sass to SCSS<br> 
+        $ sass-convert style.sass style.scss<br> 
+        # Convert SCSS to Sass<br> 
+        $ sass-convert style.scss style.sass</code>
+      <p> 
+        Note that this command does not generate CSS files. For that, use the
+        sass command described elsewhere.
+      </p>
+    </div>
+  </section>
+  <section id="Using_Sass" class="main-section">
+    <header>Using Sass</header>
+    <div>
+      <p>
+        Sass can be used in three ways: as a command-line tool, as a
+        standalone Ruby module, and as a plugin for any Rack-enabled
+        framework, including Ruby on Rails and Merb. The first step for all of
+        these is to install the Sass gem:
+      </p>
+      <code>gem install sass </code>
+      <p>If you're using Windows, you may need to install Ruby first.</p>
+      <p>To run Sass from the command line, just use</p>
+      <code>sass input.scss output.css </code>
+      <p>
+        You can also tell Sass to watch the file and update the CSS every time
+        the Sass file changes:
+      </p>
+      <code>sass --watch input.scss:output.css</code>
+      <p>
+        If you have a directory with many Sass files, you can also tell Sass
+        to watch the entire directory:
+      </p>
+      <code>sass --watch app/sass:public/stylesheets</code>
+      <p>Use sass --help for full documentation.</p>
+      <p>
+        Using Sass in Ruby code is very simple. After installing the Sass gem,
+        you can use it by running require "sass" and using Sass::Engine like
+        so:
+      </p>
+      <code>engine = Sass::Engine.new("#main {background-color: #0000ff}",
+          :syntax => :scss) engine.render #=> "#main { background-color:
+          #0000ff; }\n"</code>
+    </div>
+  </section>
+  <section id="CSS_Extensions" class="main-section">
+    <header>CSS Extensions</header>
+    <div>
+      <h3>Nested Rules</h3>
+      <p>
+        Sass allows CSS rules to be nested within one another. The inner rule
+        then only applies within the outer rule's selector. For example:
+      </p>
+      <code>#main p { <br>
+        color: #00ff00; <br>
+        width: 97%; <br>
+          .redbox { <br>
+             background-color:#ff0000; <br>
+             color: #000000; } }
+            </code>
+      <p>is compiled to:</p>
+      <code>#main p { <br>
+        color: #00ff00; <br>
+        width: 97%; }<br> 
+        #main p .redbox {<br>
+          background-color: #ff0000;<br> 
+          color: #000000; }
+        </code>
+    </div>
+  </section>
+  <section id="Comments" class="main-section">
+    <header>Comments</header>
+    <div>
+      <p>
+        Sass supports standard multiline CSS comments with /* */, as well as
+        single-line comments with //. The multiline comments are preserved in
+        the CSS output where possible, while the single-line comments are
+        removed. For example:
+      </p>
+      <code>/* This comment is * several lines long. * since it uses the CSS
+          comment syntax, * it will appear in the CSS output. */ body { color:
+          black; } // These comments are only one line long each. // They won't
+          appear in the CSS output, // since they use the single-line comment
+          syntax. a { color: green; }</code>
+      <p>is compiled to:</p>
+      <code>/* This comment is * several lines long. * since it uses the CSS
+          comment syntax, * it will appear in the CSS output. */ body { color:
+          black; } a { color: green; }
+        </code>
+    </div>
+  </section>
+  <section id="SassScript" class="main-section">
+    <header>SassScript</header>
+    <div>
+      <p>
+        In addition to the plain CSS property syntax, Sass supports a small
+        set of extensions called SassScript. SassScript allows properties to
+        use variables, arithmetic, and extra functions. SassScript can be used
+        in any property value.
+      </p>
+      <p>
+        SassScript can also be used to generate selectors and property names,
+        which is useful when writing mixins. This is done via interpolation.
+      </p>
+      <h3>Interactive Shell</h3>
+      <p>
+        You can easily experiment with SassScript using the interactive shell.
+        To launch the shell run the sass command-line with the -i option. At
+        the prompt, enter any legal SassScript expression to have it evaluated
+        and the result printed out for you:
+      </p>
+      <code>$ sass -i >> "Hello, Sassy World!" "Hello, Sassy World!" >> 1px + 1px
+          + 1px 3px >> #777 + #777 #eeeeee >> #777 + #888 white</code>
+    </div>
+  </section>
+</main>
+
+</html>
